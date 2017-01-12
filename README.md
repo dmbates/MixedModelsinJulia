@@ -12,34 +12,21 @@ The plan is that the notebooks can be run on [`JuliaBox`](https://juliabox.com).
 ```jl
 Pkg.update()
 Pkg.status("MixedModels")
+Pks.status("Feather")
 ```
-If `Pkg.status` does not return a version number, add the package with
+If `Pkg.status` does not return a version number, add the package with, e.g.
 ```jl
 Pkg.add("MixedModels")
 ```
 
 Because of dependencies, `MixedModels` will also cause `DataFrames`, `GLM`, and `Distributions` to be installed.
 
-At present `R` is available on JuliaBox for the Julia `RCall` package but the `lme4` package for `R` is not.  It can be installed with the Julia command sequence
-```jl
-Pkg.add("RCall")
-using RCall
-R"""
-install.packages("lme4", repos="https://cloud.r-project.org")
-"""
-```
-but this takes a bit of time and the `lme4` package will not persist between JuliaBox sessions.  In other words, this must be done for each fresh JuliaBox session.
-
-An alternative is to clone this repository, install `Julia` (see the [downloads page](https://julialang.org/downloads), and [`R`](http://r-project.org), start `julia` and execute
+An alternative is to clone this repository, install `Julia` (see the [downloads page](https://julialang.org/downloads), start `julia` and execute
 ```jl
 Pkg.update()
 Pkg.add("IJulia")  # this takes a while the first time it is run
 Pkg.add("MixedModels")
-Pkg.add("RCall")
-using RCall
-R"""
-install.packages("lme4", repos="https://cloud.r-project.org")
-"""
+Pkg.add("Feather")
 using IJulia
 notebook()
 ```
